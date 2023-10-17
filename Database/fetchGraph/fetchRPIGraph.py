@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt
 import networkx as nx
 import osmnx as ox
+import json
+
 def testPlotRoute(RPI):
       orig = ox.nearest_nodes(RPI, 42.7324294, -73.6905807)
       dest = ox.nearest_nodes(RPI, 42.7338301, -73.6847063)
@@ -10,8 +12,30 @@ def testPlotRoute(RPI):
       #route_map = ox.plot_route_folium(RPI, route)
       #route_map.save('test.html')
       return route
+def addNodes(filename):
+      f = open(filename)
+      data = json.load(f)
+      add_nulls = lambda number, zero_count : "{0:0{1}d}".format(number, zero_count)
+      counter = 0
+      for i in data['Entrances']:
+            for j in i['Points']:
+                  counter += 1
+                  name = i['NAME']
+                  tmp_id = add_nulls(counter, 5)
+                  pointName = name + str(tmp_id)
+                  print(pointName)
+                  print(j.strip(' ').split(','))
+      # '001': 
+      #       {
+      #             'y': 7.367210, 
+      #             'x': 151.838487,
+      #             'street_count': 1
+      #       }
+      # }
+      return 0
 
-def plotGraph(place):
+
+def plotGraph():
       #ox.config(use_cache=True, log_console=False)
       ox.settings.log_console = False
       ox.settings.use_cache = True
@@ -51,8 +75,9 @@ def customNodeCreator(filename):
       return nodeDict
 
 
-place = 'Rensselaer Polytechnic Institute'
-test = plotGraph(place).edges(data=True)
+#place = 'Rensselaer Polytechnic Institute'
+#test = plotGraph().edges(data=True)
+addNodes('Database/fetchGraph/buildingEntrance.json')
 
 # for u, v, highway in RPI.edges(highway='highway'):
       #       if highway != 'footpath' or highway != 'path': 
