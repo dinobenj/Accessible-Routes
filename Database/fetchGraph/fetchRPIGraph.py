@@ -75,9 +75,9 @@ def customNodeCreator(filename):
       return nodeDict
 
 
-#place = 'Rensselaer Polytechnic Institute'
-#test = plotGraph().edges(data=True)
-addNodes('Database/fetchGraph/buildingEntrance.json')
+place = 'Rensselaer Polytechnic Institute'
+test = plotGraph().edges(data=True)
+#addNodes('Database/fetchGraph/buildingEntrance.json')
 
 # for u, v, highway in RPI.edges(highway='highway'):
       #       if highway != 'footpath' or highway != 'path': 
